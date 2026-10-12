@@ -54,9 +54,6 @@ Copy `.env.example` to `.env`:
 # On Windows PowerShell:
 Copy-Item .env.example .env
 
-# On Linux / macOS:
-cp .env.example .env
-```
 Open `.env` and set your MySQL password:
 ```env
 PORT=3000
@@ -129,37 +126,4 @@ npm test
 
 ---
 
-## 6. Lab Questions & Answers
-
-### (a) Why do `UPDATE` and `DELETE` contain `AND user_id = ?`, and what changes if you remove it?
-**Answer:**  
-In a multi-user web application, the `todo_id` comes from the browser client (via URL parameters or form body). Since HTTP requests can be manipulated by malicious users or automated tools (e.g., Postman, curl, or browser dev tools), a user could send an arbitrary `todo_id` that belongs to someone else.
-
-By including `AND user_id = ?` where `user_id` is retrieved strictly from the secure server-side session:
-1. MySQL matches both conditions simultaneously. If the task does not belong to the currently logged-in student, 0 rows match (`affectedRows = 0`), and the record is safely left untouched.
-2. **What changes if you remove it:** If `AND user_id = ?` is omitted (e.g., `DELETE FROM todos WHERE todo_id = ?`), any user could delete or modify any other student's tasks simply by guessing or iterating through task IDs (an **Insecure Direct Object Reference / IDOR** vulnerability).
-
----
-
-### (b) What happens if you insert a to-do for a `user_id` that does not exist, and which constraint of the lecture is that?
-**Answer:**  
-- **What happens:** MySQL aborts the query and raises an error (`Error 1452: Cannot add or update a child row: a foreign key constraint fails`). The insert fails and no record is added to `todos`.
-- **Lecture Constraint:** This is the **Referential Integrity Constraint** (Foreign Key Constraint). It guarantees that a foreign key attribute (`todos.user_id`) must always refer to an existing, valid primary key value in the referenced parent table (`users.user_id`) or be NULL (if NULL values are allowed).
-
----
-
-### (c) Why do you store a hash and not the password?
-**Answer:**  
-- **Breach Mitigation:** If the database server is compromised, leaked, or accessed by unauthorized individuals, plaintext passwords would be immediately exposed. Because users often reuse passwords across services (email, banking, university accounts), storing plaintext passwords endangers their entire digital life.
-- **Why a Cryptographic Salted Hash (bcrypt):**
-  1. **One-way transformation:** Hashing cannot be reversed to plaintext. When verifying a login, the system hashes the candidate input with the stored salt and compares hashes (`bcrypt.compare`).
-  2. **Unique cryptographic salt:** bcrypt generates a unique salt for each password before hashing. Even if two students choose the identical password (`"password123"`), their stored hashes are completely different, defeating rainbow tables and bulk precomputed dictionary attacks.
-  3. **Adaptive cost factor (slow on purpose):** bcrypt is intentionally designed to be computationally expensive (e.g. 10 or 12 rounds), drastically slowing down brute-force and offline dictionary attacks.
-
----
-
-### (d) The `name` column is `NOT NULL`: why did you still need your own check for an empty name?
-**Answer:**  
-- In SQL and relational database systems, `NOT NULL` enforces that the attribute value cannot be SQL `NULL` (the absence of a value).
-- However, an empty string `''` or a string containing only blank spaces (`'   '`) is a **valid, non-null string value** of length 0 or spaces. MySQL's `NOT NULL` constraint will happily accept `''` without raising any constraint violation.
-- Therefore, application-level validation (both in browser JavaScript and server-side code: `!name || name.trim() === ''`) is mandatory to verify that the student actually provided a meaningful, non-empty name before inserting the record into the database.
+t the student actually provided a meaningful, non-empty name before inserting the record into the database.
