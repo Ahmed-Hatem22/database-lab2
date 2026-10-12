@@ -1,7 +1,7 @@
 # Student Study Database System (EduStudy)
 ### Alexandria National University — Faculty of Engineering
 **Introduction to Database Systems — Lab 2 (Fall 2026)**  
-**Topic:** Web Application with MySQL Backend (Authentication, Session Management & Study Task Planner)
+
 
 ---
 
@@ -9,8 +9,8 @@
 
 | Member Name | Student ID | Role / Contributions |
 |-------------|------------|-----------------------|
-| **Ahmed Hatem** | *[Insert Student ID]* | Backend API architecture (Node.js/Express), MySQL relational schema design, password security (bcrypt), input validation, session management, frontend UI/UX, responsive styling, and automated test suite. |
-| *[Partner Name (if any)]* | *[Partner ID]* | Database testing, documentation, and frontend validation review. |
+| **Ahmed Hatem** | *[2304158]* | Backend API architecture (Node.js/Express), MySQL relational schema design, password security (bcrypt), input validation, session management, frontend UI/UX, responsive styling, and automated test suite. |
+
 
 ---
 
