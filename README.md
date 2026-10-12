@@ -121,8 +121,11 @@ npm test
 ### 3. Study Task Manager Dashboard (Tasks with Open and Completed State)
 ![Study Task Manager](screenshots/study-tasks-list.png)
 
-### 4. Mobile View on Phone-Sized Screen (360px Width)
-![Mobile Responsive View](screenshots/mobile-view.png)
+### 4. Study Task Manager Desktop View (PC Vision — Dark Mode & Controls)
+![Desktop PC View](screenshots/mobile-view.png)
+
+### 5. Mobile Responsive View (Phone-Sized 360px Window)
+![Mobile Responsive View](screenshots/phone-360px.png)
 
 ---
 
