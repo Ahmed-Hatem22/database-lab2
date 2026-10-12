@@ -46,17 +46,11 @@ async function capture() {
   await page.screenshot({ path: path.join(SCREENSHOTS_DIR, 'study-tasks-list.png') });
 
   // 4. Screenshot 4: PC Vision (Desktop 1280x800 with Dark Mode toggled)
-  console.log('Capturing: mobile-view.png changed to PC vision (1280x800 Desktop)...');
+  console.log('Capturing: pc-dashboard.png (1280x800 Desktop Dark Mode)...');
   await page.setViewport({ width: 1280, height: 800 });
-  // Toggle dark mode for sleek PC vision
   await page.click('#themeToggleBtn');
   await new Promise(r => setTimeout(r, 300));
-  await page.screenshot({ path: path.join(SCREENSHOTS_DIR, 'mobile-view.png') });
   await page.screenshot({ path: path.join(SCREENSHOTS_DIR, 'pc-dashboard.png') });
-
-  // Also capture phone view as a dedicated backup file in case TA requires it
-  await page.setViewport({ width: 360, height: 740, isMobile: true });
-  await page.screenshot({ path: path.join(SCREENSHOTS_DIR, 'phone-360px.png') });
 
   console.log('All screenshots captured successfully in PC vision!');
   await browser.close();
